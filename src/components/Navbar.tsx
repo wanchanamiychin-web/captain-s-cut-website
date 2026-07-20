@@ -74,9 +74,9 @@ export function Navbar() {
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          <Link to="/booking" className="hidden md:inline-flex btn-gold rounded-md px-4 py-2 text-sm font-semibold">
+          <a href="https://lin.ee/O6ACLP4" target="_blank" rel="noopener" className="hidden md:inline-flex btn-gold rounded-md px-4 py-2 text-sm font-semibold">
             {t("cta.book")}
-          </Link>
+          </a>
           <button
             onClick={() => setOpen(o => !o)}
             className="lg:hidden inline-flex items-center justify-center rounded-md border border-border p-2"
@@ -95,9 +95,9 @@ export function Navbar() {
                 {t(l.key)}
               </Link>
             ))}
-            <Link to="/booking" className="mt-2 btn-gold rounded-md px-4 py-2.5 text-sm font-semibold text-center">
+            <a href="https://lin.ee/O6ACLP4" target="_blank" rel="noopener" className="mt-2 btn-gold rounded-md px-4 py-2.5 text-sm font-semibold text-center">
               {t("cta.book")}
-            </Link>
+            </a>
             <div className="mt-3 flex items-center gap-2">
               <button onClick={() => setLang(lang === "th" ? "en" : "th")} className="flex-1 rounded-md border border-border px-3 py-2 text-sm">
                 {lang === "th" ? "English" : "ภาษาไทย"}

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, MessageCircle, Facebook, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { SectionHeader } from "@/components/SectionHeader";
 
@@ -83,8 +83,109 @@ function Reviews() {
               </blockquote>
             ))}
           </div>
+
+          <WriteReview />
         </div>
       </section>
     </>
   );
 }
+
+function WriteReview() {
+  const [name, setName] = useState("");
+  const [rating, setRating] = useState(5);
+  const [text, setText] = useState("");
+  const [hover, setHover] = useState(0);
+  const [sent, setSent] = useState(false);
+
+  const buildMessage = () => {
+    const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
+    return `รีวิว Captain Barber\nชื่อ: ${name || "-"}\nคะแนน: ${stars} (${rating}/5)\nความเห็น: ${text || "-"}`;
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !text.trim()) return;
+    const msg = buildMessage();
+    try {
+      await navigator.clipboard.writeText(msg);
+    } catch { /* ignore */ }
+    window.open("https://lin.ee/O6ACLP4", "_blank", "noopener");
+    setSent(true);
+    setTimeout(() => setSent(false), 8000);
+    setName(""); setText(""); setRating(5);
+  };
+
+  return (
+    <div className="mt-20 grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+      <div className="rounded-2xl border border-[color:var(--gold)]/40 bg-gradient-to-br from-[color:var(--gold)]/10 to-transparent p-6 md:p-8">
+        <div className="text-xs uppercase tracking-widest text-[color:var(--gold)] font-semibold">Share your experience</div>
+        <h3 className="mt-2 text-2xl md:text-3xl font-extrabold">อยากบอกอะไรกับเรา?</h3>
+        <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+          รีวิวของคุณช่วยให้ทีมพัฒนาบริการได้ดียิ่งขึ้น เลือกช่องทางที่สะดวก หรือกรอกฟอร์มด้านขวาแล้วส่งตรงถึงช่างกัปตันผ่าน LINE
+        </p>
+        <div className="mt-6 space-y-3">
+          <a href="https://www.google.com/search?q=Captain+Barber+ร้านตัดผม+รีวิว" target="_blank" rel="noopener"
+             className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-white text-black border border-border px-4 py-3 text-sm font-semibold hover:bg-secondary transition">
+            <MapPin className="h-4 w-4 text-[#EA4335]" /> รีวิวบน Google Maps
+          </a>
+          <a href="https://www.facebook.com/captainbarber/reviews" target="_blank" rel="noopener"
+             className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-[#1877F2] text-white px-4 py-3 text-sm font-semibold hover:opacity-90 transition">
+            <Facebook className="h-4 w-4" /> รีวิวบน Facebook
+          </a>
+          <a href="https://lin.ee/O6ACLP4" target="_blank" rel="noopener"
+             className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-[#06C755] text-white px-4 py-3 text-sm font-semibold hover:opacity-90 transition">
+            <MessageCircle className="h-4 w-4" /> ส่งรีวิวผ่าน LINE
+          </a>
+        </div>
+      </div>
+
+      <form onSubmit={onSubmit} className="rounded-2xl border border-border bg-card p-6 md:p-8 space-y-5">
+        {sent && (
+          <div className="flex items-start gap-3 rounded-lg border border-[color:var(--gold)]/50 bg-[color:var(--gold)]/10 p-4 text-sm">
+            <CheckCircle2 className="h-5 w-5 text-[color:var(--gold)] shrink-0 mt-0.5" />
+            <div>ขอบคุณสำหรับรีวิว! เราคัดลอกข้อความไว้ให้แล้ว วาง (paste) ลงในแชท LINE ที่เปิดขึ้นได้เลย</div>
+          </div>
+        )}
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">ชื่อของคุณ</label>
+          <input value={name} onChange={e => setName(e.target.value)} required maxLength={80}
+                 className="w-full rounded-lg border border-border bg-background/90 px-3.5 py-2.5 text-sm outline-none focus:border-[color:var(--gold)]"
+                 placeholder="ชื่อ - นามสกุล" />
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">ให้คะแนน</label>
+          <div className="flex items-center gap-1">
+            {[1,2,3,4,5].map(n => (
+              <button key={n} type="button"
+                      onMouseEnter={() => setHover(n)} onMouseLeave={() => setHover(0)}
+                      onClick={() => setRating(n)}
+                      aria-label={`${n} stars`}
+                      className="p-1">
+                <Star className={`h-7 w-7 transition ${n <= (hover || rating) ? "fill-[color:var(--gold)] text-[color:var(--gold)]" : "text-border"}`} />
+              </button>
+            ))}
+            <span className="ml-2 text-sm text-muted-foreground">{rating}/5</span>
+          </div>
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">ความเห็นของคุณ</label>
+          <textarea value={text} onChange={e => setText(e.target.value)} required rows={4} maxLength={500}
+                    className="w-full rounded-lg border border-border bg-background/90 px-3.5 py-2.5 text-sm outline-none focus:border-[color:var(--gold)]"
+                    placeholder="เล่าประสบการณ์การใช้บริการของคุณ..." />
+        </div>
+
+        <button type="submit" className="btn-gold w-full rounded-md px-6 py-3 text-sm font-bold inline-flex items-center justify-center gap-2">
+          <Send className="h-4 w-4" /> ส่งรีวิว
+        </button>
+        <p className="text-xs text-muted-foreground text-center">
+          กดส่งเพื่อคัดลอกรีวิว แล้วเปิดแชท LINE @captainbarber อัตโนมัติ
+        </p>
+      </form>
+    </div>
+  );
+}
+

@@ -48,9 +48,9 @@ function Home() {
             {t("hero.desc")}
           </p>
           <div className="mt-8 flex flex-wrap gap-3 reveal" style={{ animationDelay: "0.3s" }}>
-            <Link to="/booking" className="btn-gold rounded-md px-6 py-3 text-sm font-semibold inline-flex items-center gap-2">
+            <a href="https://lin.ee/O6ACLP4" target="_blank" rel="noopener" className="btn-gold rounded-md px-6 py-3 text-sm font-semibold inline-flex items-center gap-2">
               {t("cta.book")} <ArrowRight className="h-4 w-4" />
-            </Link>
+            </a>
             <a href="tel:0999999999" className="btn-outline-gold rounded-md px-6 py-3 text-sm font-semibold inline-flex items-center gap-2">
               <Phone className="h-4 w-4" /> {t("cta.call")}
             </a>
@@ -170,7 +170,7 @@ function Home() {
           <h2 className="text-3xl md:text-5xl font-extrabold">พร้อมเปลี่ยนลุคใหม่กับ <span className="gold-gradient">Captain Barber</span>?</h2>
           <p className="mt-4 text-cream/70 max-w-xl mx-auto">จองคิวออนไลน์ล่วงหน้า หรือโทรได้เลย ไม่ต้องรอนาน</p>
           <div className="mt-8 flex justify-center flex-wrap gap-3">
-            <Link to="/booking" className="btn-gold rounded-md px-8 py-3 text-sm font-semibold">{t("cta.book")}</Link>
+            <a href="https://lin.ee/O6ACLP4" target="_blank" rel="noopener" className="btn-gold rounded-md px-8 py-3 text-sm font-semibold">{t("cta.book")}</a>
             <a href="tel:0999999999" className="btn-outline-gold rounded-md px-8 py-3 text-sm font-semibold">{t("cta.call")}</a>
           </div>
         </div>

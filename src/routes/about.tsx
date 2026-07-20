@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Award, Target, Heart } from "lucide-react";
 import owner from "@/assets/owner.jpg";
 import hero from "@/assets/hero-shop.jpg";
@@ -47,7 +47,7 @@ function About() {
             <p className="mt-4 text-muted-foreground leading-relaxed">{t("about.p2")}</p>
             <p className="mt-4 text-muted-foreground leading-relaxed">{t("about.p3")}</p>
             <div className="mt-8">
-              <Link to="/booking" className="btn-gold rounded-md px-6 py-3 text-sm font-semibold">{t("cta.book")}</Link>
+              <a href="https://lin.ee/O6ACLP4" target="_blank" rel="noopener" className="btn-gold rounded-md px-6 py-3 text-sm font-semibold">{t("cta.book")}</a>
             </div>
           </div>
         </div>

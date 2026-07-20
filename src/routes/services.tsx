@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import fade from "@/assets/service-fade.jpg";
 import shave from "@/assets/service-shave.jpg";
@@ -57,7 +57,7 @@ function Services() {
                     ))}
                   </ul>
                   <div className="mt-6 pt-4 border-t border-border">
-                    <Link to="/booking" className="btn-outline-gold w-full inline-flex justify-center rounded-md px-4 py-2 text-sm font-semibold">{t("cta.book")}</Link>
+                    <a href="https://lin.ee/O6ACLP4" target="_blank" rel="noopener" className="btn-outline-gold w-full inline-flex justify-center rounded-md px-4 py-2 text-sm font-semibold">{t("cta.book")}</a>
                   </div>
                 </div>
               </article>
