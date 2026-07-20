@@ -24,7 +24,7 @@ export function Footer() {
             <li><Link to="/services" className="hover:text-[color:var(--gold)]">{t("nav.services")}</Link></li>
             <li><Link to="/gallery" className="hover:text-[color:var(--gold)]">{t("nav.gallery")}</Link></li>
             <li><Link to="/reviews" className="hover:text-[color:var(--gold)]">{t("nav.reviews")}</Link></li>
-            <li><Link to="/booking" className="hover:text-[color:var(--gold)]">{t("nav.booking")}</Link></li>
+            <li><a href="https://lin.ee/O6ACLP4" target="_blank" rel="noopener" className="hover:text-[color:var(--gold)]">{t("nav.booking")}</a></li>
           </ul>
         </div>
 
