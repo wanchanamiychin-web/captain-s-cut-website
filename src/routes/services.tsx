@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import fade from "@/assets/service-fade.jpg";
 import shave from "@/assets/service-shave.jpg";

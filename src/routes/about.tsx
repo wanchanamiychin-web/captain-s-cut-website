@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Award, Target, Heart } from "lucide-react";
 import owner from "@/assets/owner.jpg";
 import hero from "@/assets/hero-shop.jpg";
