@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Star, ChevronLeft, ChevronRight, MessageCircle, Facebook, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Send, CheckCircle2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { SectionHeader } from "@/components/SectionHeader";
 
@@ -117,28 +117,8 @@ function WriteReview() {
   };
 
   return (
-    <div className="mt-20 grid gap-8 lg:grid-cols-[1fr_1.2fr]">
-      <div className="rounded-2xl border border-[color:var(--gold)]/40 bg-gradient-to-br from-[color:var(--gold)]/10 to-transparent p-6 md:p-8">
-        <div className="text-xs uppercase tracking-widest text-[color:var(--gold)] font-semibold">Share your experience</div>
-        <h3 className="mt-2 text-2xl md:text-3xl font-extrabold">อยากบอกอะไรกับเรา?</h3>
-        <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-          รีวิวของคุณช่วยให้ทีมพัฒนาบริการได้ดียิ่งขึ้น เลือกช่องทางที่สะดวก หรือกรอกฟอร์มด้านขวาแล้วส่งตรงถึงช่างกัปตันผ่าน LINE
-        </p>
-        <div className="mt-6 space-y-3">
-          <a href="https://www.google.com/search?q=Captain+Barber+ร้านตัดผม+รีวิว" target="_blank" rel="noopener"
-             className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-white text-black border border-border px-4 py-3 text-sm font-semibold hover:bg-secondary transition">
-            <MapPin className="h-4 w-4 text-[#EA4335]" /> รีวิวบน Google Maps
-          </a>
-          <a href="https://www.facebook.com/captainbarber/reviews" target="_blank" rel="noopener"
-             className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-[#1877F2] text-white px-4 py-3 text-sm font-semibold hover:opacity-90 transition">
-            <Facebook className="h-4 w-4" /> รีวิวบน Facebook
-          </a>
-          <a href="https://lin.ee/O6ACLP4" target="_blank" rel="noopener"
-             className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-[#06C755] text-white px-4 py-3 text-sm font-semibold hover:opacity-90 transition">
-            <MessageCircle className="h-4 w-4" /> ส่งรีวิวผ่าน LINE
-          </a>
-        </div>
-      </div>
+    <div className="mt-20 mx-auto max-w-2xl">
+
 
       <form onSubmit={onSubmit} className="rounded-2xl border border-border bg-card p-6 md:p-8 space-y-5">
         {sent && (
