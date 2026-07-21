@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Star, ChevronLeft, ChevronRight, MessageCircle, Facebook, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Send, CheckCircle2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { SectionHeader } from "@/components/SectionHeader";
 
