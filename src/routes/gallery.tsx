@@ -90,7 +90,7 @@ function BeforeAfter({ img, title, beforeLabel, afterLabel }: { img: string; tit
     <figure className="group overflow-hidden rounded-xl border border-border bg-card">
       <div className="relative aspect-[4/5] w-full overflow-hidden select-none">
         {/* Before layer (desaturated) */}
-        <img src={img} alt="before" loading="lazy" className="absolute inset-0 h-full w-full object-cover" style={{ filter: "grayscale(1) brightness(0.75) contrast(0.95)" }} />
+        <img src={img} alt="before" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
         {/* After layer (revealed by slider) */}
         <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
           <img src={img} alt="after" loading="lazy" className="h-full w-full object-cover" style={{ width: `${(100/pos)*100}%`, minWidth: "100%" }} />
