@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Phone, MapPin, Clock, MessageCircle, Facebook } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
-import { SectionHeader } from "@/components/SectionHeader";
+import { PageHero } from "@/components/PageHero";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -20,11 +20,11 @@ export const Route = createFileRoute("/contact")({
 function Contact() {
   const { t } = useI18n();
   return (
+    <>
+    <PageHero eyebrow="Get in touch" title={t("contact.title")} sub={t("contact.sub")} />
     <section className="section-y">
       <div className="container-x">
-        <SectionHeader eyebrow="Get in touch" title={t("contact.title")} sub={t("contact.sub")} />
-
-        <div className="mt-12 grid gap-8 lg:grid-cols-2">
+        <div className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-4">
             <InfoRow icon={<MapPin />} label="Address" value={t("contact.address")} />
             <InfoRow icon={<Clock />} label={t("contact.hours.label")} value={t("contact.hours.value")} />
@@ -42,7 +42,7 @@ function Contact() {
           <div className="overflow-hidden rounded-xl border border-border bg-card min-h-[360px]">
             <iframe
               title="Captain Barber Map"
-              src="https://www.google.com/maps?q=Sukhumvit+Bangkok&output=embed"
+              src="https://www.google.com/maps?q=20.239799,99.682589&z=17&output=embed"
               width="100%"
               height="100%"
               className="h-full min-h-[360px] w-full"

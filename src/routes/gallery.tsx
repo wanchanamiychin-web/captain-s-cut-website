@@ -8,7 +8,7 @@ import p1 from "@/assets/portrait-1.jpg";
 import p2 from "@/assets/portrait-2.jpg";
 import p3 from "@/assets/portrait-3.jpg";
 import { useI18n } from "@/lib/i18n";
-import { SectionHeader } from "@/components/SectionHeader";
+import { PageHero } from "@/components/PageHero";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -52,9 +52,10 @@ function Gallery() {
   ];
 
   return (
+    <>
+    <PageHero eyebrow="Portfolio" title={t("gallery.title")} sub={t("gallery.sub")} />
     <section className="section-y">
       <div className="container-x">
-        <SectionHeader eyebrow="Portfolio" title={t("gallery.title")} sub={t("gallery.sub")} />
 
         <div className="mt-10 flex flex-wrap justify-center gap-2">
           {tabs.map(tab => (
@@ -79,6 +80,7 @@ function Gallery() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 

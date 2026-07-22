@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Star, ChevronLeft, ChevronRight, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
-import { SectionHeader } from "@/components/SectionHeader";
+import { PageHero } from "@/components/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/reviews")({
@@ -70,9 +70,10 @@ function Reviews() {
   const current = featured[idx] ?? featured[0];
 
   return (
+    <>
+    <PageHero eyebrow="Testimonials" title={t("reviews.title")} sub={t("reviews.sub")} />
     <section className="section-y">
       <div className="container-x">
-        <SectionHeader eyebrow="Testimonials" title={t("reviews.title")} sub={t("reviews.sub")} />
 
         {current && (
           <div className="mt-12 relative mx-auto max-w-3xl rounded-2xl border border-border bg-card p-8 md:p-12">

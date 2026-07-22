@@ -5,7 +5,8 @@ import shave from "@/assets/service-shave.jpg";
 import style from "@/assets/service-style.jpg";
 import color from "@/assets/service-color.jpg";
 import { useI18n } from "@/lib/i18n";
-import { SectionHeader } from "@/components/SectionHeader";
+import { PageHero } from "@/components/PageHero";
+
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -34,9 +35,9 @@ function Services() {
   const { t } = useI18n();
   return (
     <>
+      <PageHero eyebrow="Menu" title={t("services.title")} sub={t("services.sub")} />
       <section className="section-y">
         <div className="container-x">
-          <SectionHeader eyebrow="Menu" title={t("services.title")} sub={t("services.sub")} />
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {services.map((s, i) => (
               <article key={i} className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition hover:border-[color:var(--gold)]/60 hover:-translate-y-1 duration-300">
