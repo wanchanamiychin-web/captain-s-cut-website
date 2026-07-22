@@ -147,6 +147,7 @@ function Booking() {
         .input::placeholder { color: var(--color-muted-foreground); }
       `}</style>
     </section>
+    </>
   );
 }
 
