@@ -3,7 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { Phone, MessageCircle, Facebook, CheckCircle2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
-import { SectionHeader } from "@/components/SectionHeader";
+import { PageHero } from "@/components/PageHero";
 
 export const Route = createFileRoute("/booking")({
   head: () => ({
@@ -64,9 +64,10 @@ function Booking() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
+    <>
+    <PageHero eyebrow="Reservation" title={t("booking.title")} sub={t("booking.sub")} />
     <section className="section-y">
       <div className="container-x">
-        <SectionHeader eyebrow="Reservation" title={t("booking.title")} sub={t("booking.sub")} />
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
           <form onSubmit={onSubmit} className="rounded-2xl border border-border bg-card p-6 md:p-8 space-y-5">
@@ -146,6 +147,7 @@ function Booking() {
         .input::placeholder { color: var(--color-muted-foreground); }
       `}</style>
     </section>
+    </>
   );
 }
 
