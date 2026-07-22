@@ -117,6 +117,7 @@ function Reviews() {
         <WriteReview />
       </div>
     </section>
+    </>
   );
 }
 
