@@ -26,16 +26,16 @@ export const Route = createFileRoute("/gallery")({
 
 type Cat = "all" | "fade" | "classic" | "color" | "shave";
 
-const items: { img: string; title: string; cat: Cat }[] = [
-  { img: fade,     title: "Mid Fade",         cat: "fade" },
-  { img: p1,       title: "Skin Fade",        cat: "fade" },
-  { img: styleImg, title: "Side Part",        cat: "classic" },
-  { img: p2,       title: "Crew Cut",         cat: "classic" },
-  { img: p3,       title: "Executive Cut",    cat: "classic" },
-  { img: color,    title: "Ash Blonde",       cat: "color" },
-  { img: color,    title: "Highlight",        cat: "color" },
-  { img: shave,    title: "Hot Towel Shave",  cat: "shave" },
-  { img: shave,    title: "Beard Trim",       cat: "shave" },
+const items: { before: string; after: string; title: string; cat: Cat }[] = [
+  { before: p1,       after: fade,     title: "Mid Fade",         cat: "fade" },
+  { before: p2,       after: p1,       title: "Skin Fade",        cat: "fade" },
+  { before: p3,       after: styleImg, title: "Side Part",        cat: "classic" },
+  { before: p1,       after: p2,       title: "Crew Cut",         cat: "classic" },
+  { before: p2,       after: p3,       title: "Executive Cut",    cat: "classic" },
+  { before: p3,       after: color,    title: "Ash Blonde",       cat: "color" },
+  { before: p1,       after: color,    title: "Highlight",        cat: "color" },
+  { before: p2,       after: shave,    title: "Hot Towel Shave",  cat: "shave" },
+  { before: p3,       after: shave,    title: "Beard Trim",       cat: "shave" },
 ];
 
 function Gallery() {
@@ -75,7 +75,7 @@ function Gallery() {
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((it, i) => (
-            <BeforeAfter key={i} img={it.img} title={it.title} beforeLabel={t("before")} afterLabel={t("after")} />
+            <BeforeAfter key={i} before={it.before} after={it.after} title={it.title} beforeLabel={t("before")} afterLabel={t("after")} />
           ))}
         </div>
       </div>
@@ -84,16 +84,16 @@ function Gallery() {
   );
 }
 
-function BeforeAfter({ img, title, beforeLabel, afterLabel }: { img: string; title: string; beforeLabel: string; afterLabel: string }) {
+function BeforeAfter({ before, after, title, beforeLabel, afterLabel }: { before: string; after: string; title: string; beforeLabel: string; afterLabel: string }) {
   const [pos, setPos] = useState(55);
   return (
     <figure className="group overflow-hidden rounded-xl border border-border bg-card">
       <div className="relative aspect-[4/5] w-full overflow-hidden select-none">
-        {/* Before layer (desaturated) */}
-        <img src={img} alt="before" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        {/* Before layer */}
+        <img src={before} alt="before" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
         {/* After layer (revealed by slider) */}
         <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
-          <img src={img} alt="after" loading="lazy" className="h-full w-full object-cover" style={{ width: `${(100/pos)*100}%`, minWidth: "100%" }} />
+          <img src={after} alt="after" loading="lazy" className="h-full w-full object-cover" style={{ width: `${(100/pos)*100}%`, minWidth: "100%" }} />
         </div>
         {/* Handle */}
         <div className="pointer-events-none absolute inset-y-0" style={{ left: `${pos}%` }}>
