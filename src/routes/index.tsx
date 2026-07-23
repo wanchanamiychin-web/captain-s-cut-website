@@ -34,7 +34,33 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { t } = useI18n();
+  const [dbCount, setDbCount] = useState(0);
+  const [dbSum, setDbSum] = useState(0);
+
+  useEffect(() => {
+    let mounted = true;
+    supabase.from("reviews").select("stars").then(({ data }) => {
+      if (!mounted || !data) return;
+      setDbCount(data.length);
+      setDbSum(data.reduce((s, r: { stars: number }) => s + (r.stars || 0), 0));
+    });
+    const channel = supabase
+      .channel("reviews-stats")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "reviews" }, (payload) => {
+        const stars = (payload.new as { stars?: number }).stars || 0;
+        setDbCount(c => c + 1);
+        setDbSum(s => s + stars);
+      })
+      .subscribe();
+    return () => { mounted = false; supabase.removeChannel(channel); };
+  }, []);
+
+  const totalCount = dbCount + SEED_COUNT;
+  const avg = (dbSum + SEED_SUM) / totalCount;
+  const avgLabel = `${avg.toFixed(1)}★`;
+
   return (
+
     <>
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
