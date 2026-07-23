@@ -95,7 +95,7 @@ function Home() {
           <div className="mt-14 grid max-w-3xl grid-cols-3 gap-4 border-t border-white/10 pt-8">
             <Stat n="4+" l={t("about.p1").length ? "ปี / Years" : ""} label="ปี / Years" />
             <Stat n="5K+" label="ลูกค้า / Clients" />
-            <Stat n="4.9★" label="Google Reviews" />
+            <Stat n={avgLabel} label={`จากรีวิว ${totalCount} รายการ`} />
           </div>
         </div>
       </section>
