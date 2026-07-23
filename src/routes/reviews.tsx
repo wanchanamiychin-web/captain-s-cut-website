@@ -100,7 +100,7 @@ function Reviews() {
         )}
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {reviews.map((r) => (
+          {reviews.slice(0, 8).map((r) => (
             <blockquote key={r.id} className="rounded-xl border border-border bg-card p-6">
               <div className="flex gap-0.5 text-[color:var(--gold)]">
                 {Array.from({length: r.stars}).map((_,i) => <Star key={i} className="h-4 w-4 fill-current" />)}
