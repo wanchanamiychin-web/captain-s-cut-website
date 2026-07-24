@@ -102,7 +102,14 @@ function Reviews() {
               "{current.text}"
             </blockquote>
             <div className="mt-6 text-center">
-              <div className="font-bold">{current.name}</div>
+              <div className="font-bold inline-flex items-center gap-2 justify-center flex-wrap">
+                {current.name}
+                {current.is_verified && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[11px] font-semibold text-emerald-500">
+                    <ShieldCheck className="h-3 w-3" /> Verified Customer
+                  </span>
+                )}
+              </div>
               {current.role && <div className="text-sm text-muted-foreground">{current.role}</div>}
             </div>
             <div className="mt-8 flex items-center justify-center gap-4">
@@ -125,7 +132,14 @@ function Reviews() {
               </div>
               <p className="mt-3 text-sm text-foreground/90 leading-relaxed">"{r.text}"</p>
               <footer className="mt-4">
-                <div className="text-sm font-bold">{r.name}</div>
+                <div className="text-sm font-bold inline-flex items-center gap-2 flex-wrap">
+                  {r.name}
+                  {r.is_verified && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-semibold text-emerald-500">
+                      <ShieldCheck className="h-3 w-3" /> Verified
+                    </span>
+                  )}
+                </div>
                 {r.role && <div className="text-xs text-muted-foreground">{r.role}</div>}
               </footer>
             </blockquote>
