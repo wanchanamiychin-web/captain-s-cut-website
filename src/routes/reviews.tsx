@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Star, ChevronLeft, ChevronRight, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Send, CheckCircle2, Loader2, ShieldCheck } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { PageHero } from "@/components/PageHero";
 import { supabase } from "@/integrations/supabase/client";
@@ -26,6 +26,8 @@ type Review = {
   stars: number;
   text: string;
   created_at: string;
+  is_verified?: boolean;
+  is_visible?: boolean;
 };
 
 const seedReviews: Review[] = [
@@ -51,8 +53,24 @@ function Reviews() {
 
     const channel = supabase
       .channel("reviews-feed")
-      .on("postgres_changes", { event: "INSERT", schema: "public", table: "reviews" }, (payload) => {
-        setDbReviews(prev => [payload.new as Review, ...prev]);
+      .on("postgres_changes", { event: "*", schema: "public", table: "reviews" }, (payload) => {
+        setDbReviews(prev => {
+          if (payload.eventType === "INSERT") {
+            const row = payload.new as Review;
+            return row.is_visible === false ? prev : [row, ...prev];
+          }
+          if (payload.eventType === "UPDATE") {
+            const row = payload.new as Review;
+            const exists = prev.some(r => r.id === row.id);
+            if (row.is_visible === false) return prev.filter(r => r.id !== row.id);
+            if (!exists) return [row, ...prev];
+            return prev.map(r => r.id === row.id ? row : r);
+          }
+          if (payload.eventType === "DELETE") {
+            return prev.filter(r => r.id !== (payload.old as Review).id);
+          }
+          return prev;
+        });
       })
       .subscribe();
 
