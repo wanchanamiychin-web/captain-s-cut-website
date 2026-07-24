@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Star, ChevronLeft, ChevronRight, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Send, CheckCircle2, Loader2, ShieldCheck } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { PageHero } from "@/components/PageHero";
 import { supabase } from "@/integrations/supabase/client";
@@ -26,6 +26,8 @@ type Review = {
   stars: number;
   text: string;
   created_at: string;
+  is_verified?: boolean;
+  is_visible?: boolean;
 };
 
 const seedReviews: Review[] = [
@@ -51,8 +53,24 @@ function Reviews() {
 
     const channel = supabase
       .channel("reviews-feed")
-      .on("postgres_changes", { event: "INSERT", schema: "public", table: "reviews" }, (payload) => {
-        setDbReviews(prev => [payload.new as Review, ...prev]);
+      .on("postgres_changes", { event: "*", schema: "public", table: "reviews" }, (payload) => {
+        setDbReviews(prev => {
+          if (payload.eventType === "INSERT") {
+            const row = payload.new as Review;
+            return row.is_visible === false ? prev : [row, ...prev];
+          }
+          if (payload.eventType === "UPDATE") {
+            const row = payload.new as Review;
+            const exists = prev.some(r => r.id === row.id);
+            if (row.is_visible === false) return prev.filter(r => r.id !== row.id);
+            if (!exists) return [row, ...prev];
+            return prev.map(r => r.id === row.id ? row : r);
+          }
+          if (payload.eventType === "DELETE") {
+            return prev.filter(r => r.id !== (payload.old as Review).id);
+          }
+          return prev;
+        });
       })
       .subscribe();
 
@@ -84,7 +102,14 @@ function Reviews() {
               "{current.text}"
             </blockquote>
             <div className="mt-6 text-center">
-              <div className="font-bold">{current.name}</div>
+              <div className="font-bold inline-flex items-center gap-2 justify-center flex-wrap">
+                {current.name}
+                {current.is_verified && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[11px] font-semibold text-emerald-500">
+                    <ShieldCheck className="h-3 w-3" /> Verified Customer
+                  </span>
+                )}
+              </div>
               {current.role && <div className="text-sm text-muted-foreground">{current.role}</div>}
             </div>
             <div className="mt-8 flex items-center justify-center gap-4">
@@ -107,7 +132,14 @@ function Reviews() {
               </div>
               <p className="mt-3 text-sm text-foreground/90 leading-relaxed">"{r.text}"</p>
               <footer className="mt-4">
-                <div className="text-sm font-bold">{r.name}</div>
+                <div className="text-sm font-bold inline-flex items-center gap-2 flex-wrap">
+                  {r.name}
+                  {r.is_verified && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-semibold text-emerald-500">
+                      <ShieldCheck className="h-3 w-3" /> Verified
+                    </span>
+                  )}
+                </div>
                 {r.role && <div className="text-xs text-muted-foreground">{r.role}</div>}
               </footer>
             </blockquote>
